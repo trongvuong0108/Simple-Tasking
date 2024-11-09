@@ -8,11 +8,11 @@ import { TaskService } from './Task/task.service';
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
+      host: 'mysql',
       port: 3306,
       username: 'root',
-      password: '123456',
-      database: 'nestjs',
+      password: 'Password@1234',
+      database: 'simple-tasking-db',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
