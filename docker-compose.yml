@@ -1,0 +1,28 @@
+services:
+  mysql:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Password@1234
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_products_volume:/var/lib/mysql
+      - ./init:/docker-entrypoint-initdb.d
+  backend:
+    container_name: simple-tasking-backend
+    image: ${DOCKER_REGISTRY-}simple-tasking-backend:lastest
+    build:
+      context: ./simple-tasking-api
+      dockerfile: Dockerfile
+    depends_on: [mysql]
+    ports:
+      - "8081:8080"
+  frontend:
+    container_name: simple-tasking-frontend
+    image: ${DOCKER_REGISTRY-}simple-tasking-frontend:lastest
+    build:
+      context: ./simple-tasking-portal
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
